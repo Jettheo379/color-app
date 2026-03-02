@@ -138,17 +138,30 @@ storeBtn.addEventListener('click', () => {
 
   // 月まとめ表示
 showMonth.addEventListener('click',()=>{
-  monthContent.innerHTML=''; 
+  monthContent.innerHTML='';
+
   observations.forEach(o=>{
     const div = document.createElement('div');
+
     div.style.backgroundColor = o.color;
     div.style.color = o.color === '#F8F8FF' ? '#000' : '#fff';
     div.style.padding = '5px 10px';
     div.style.borderRadius = '5px';
     div.style.marginBottom = '5px';
-    div.textContent = `[${o.date} ${o.time}] ${o.text} (${o.meaning})`;
+
+    const dateObj = new Date(o.date);
+    const formatted =
+      dateObj.getFullYear() + '/' +
+      (dateObj.getMonth()+1) + '/' +
+      dateObj.getDate() + ' ' +
+      dateObj.getHours() + ':' +
+      String(dateObj.getMinutes()).padStart(2,'0');
+
+    div.textContent = `[${formatted}] ${o.text} (${o.meaning})`;
+
     monthContent.appendChild(div);
-    });
+  });
+
   modal.style.display = 'flex';
 });
 // モーダル閉じる
