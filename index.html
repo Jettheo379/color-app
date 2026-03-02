@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>気分観測アプリ16色4x4版</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<h1>今日の気分を選ぶ</h1>
+
+<div class="color-panel">
+  <div class="color-grid" id="colorGrid"></div>
+</div>
+
+<div id="meaning"></div>
+
+<div class="input-area">
+  <input type="text" id="memoInput" placeholder="今日の観測を書こう">
+  <button id="save-button">しまう</button>
+</div>
+
+<button id="showMonth">月まとめを見る</button>
+
+
+<div id="box"></div>
+
+<div id="modal" style="display:none;">
+  <div class="modal-box">
+    <div id="monthContent"></div>
+    <button id="closeModal">閉じる</button>
+  </div>
+</div>
+
+
+
+<script>
+const grid = document.getElementById('colorGrid');
+const meaningDiv = document.getElementById('meaning');
+const memoInput = document.getElementById('memoInput');
+const storeBtn = document.getElementById('save-button');
+const box = document.getElementById('box');
+const showMonth = document.getElementById('showMonth');
+const modal = document.getElementById('modal');
+const monthContent = document.getElementById('monthContent');
+const closeModal = document.getElementById('closeModal');
+
+
+
+let observations = [];
+
+const savedData = localStorage.getItem("observations");
+if (savedData) {
+  observations = JSON.parse(savedData);
+}
+
+let selectedColor = null;
+
+
+const colors = [
+  {color:'#FF4C4C', meaning:'情熱・行動力'},
+  {color:'#FFA500', meaning:'活力・元気'},
+  {color:'#FFB6C1', meaning:'優しさ・愛'},
+  {color:'#FFD700', meaning:'喜び・軽やかさ'},
+  {color:'#9ACD32', meaning:'成長・安らぎ'},
+  {color:'#32CD32', meaning:'安心・安定'},
+  {color:'#00CED1', meaning:'冷静・整理'},
+  {color:'#1E90FF', meaning:'静けさ・内省'},
+  {color:'#4B0082', meaning:'深み・集中'},
+  {color:'#800080', meaning:'直感・想像力'},
+  {color:'#A0522D', meaning:'土台・安定'},
+  {color:'#2F2F2F', meaning:'落ち着き・包容'},
+  {color:'#F8F8FF', meaning:'純粋・清らかさ'},
+  {color:'#FFD700', meaning:'高揚・光'},
+  {color:'#C0C0C0', meaning:'静謐・クール'},
+  {color:'#808080', meaning:'中立・調整'}
+];
+
+// 色パネル生成
+colors.forEach(item=>{
+  const circle = document.createElement('div');
+  circle.className='color-circle';
+  circle.style.backgroundColor=item.color;
+    // 白ボタンはうっすらボーダー付ける
+  if(item.color === '#F8F8FF'){
+    circle.style.border = '1px solid #ccc';
+  }
+
+//色を選ぶ
+circle.addEventListener('click',()=>{
+    selectedColor = item.color;
+    document.body.style.backgroundColor = selectedColor;
+    
+     
+    meaningDiv.textContent = item.meaning;
+    meaningDiv.classList.add('show');
+    });   
+ 
+    grid.appendChild(circle);
+});
+
+//保存
+storeBtn.addEventListener('click', () => {
+  if (memoInput.value.trim() !== '' && selectedColor) {
+
+    const now = new Date();
+
+    const observation = {
+      color: selectedColor,
+      meaning: meaningDiv.textContent,
+      text: memoInput.value,
+      date: now.toISOString()
+    };
+
+    observations.push(observation);
+
+    localStorage.setItem("observations", JSON.stringify(observations));
+
+    // 表示用
+    const storedDiv = document.createElement('div');
+    storedDiv.className = 'stored';
+    storedDiv.style.backgroundColor = selectedColor;
+    storedDiv.style.color =
+      selectedColor === '#F8F8FF' ? '#000' : '#fff';
+
+    storedDiv.textContent = memoInput.value;
+
+    box.innerHTML = '';
+    box.appendChild(storedDiv);
+
+    // リセット
+    memoInput.value = '';
+    meaningDiv.classList.remove('show');
+    selectedColor = null;
+  }
+});
+
+  // 月まとめ表示
+showMonth.addEventListener('click',()=>{
+  monthContent.innerHTML=''; 
+  observations.forEach(o=>{
+    const div = document.createElement('div');
+    div.style.backgroundColor = o.color;
+    div.style.color = o.color === '#F8F8FF' ? '#000' : '#fff';
+    div.style.padding = '5px 10px';
+    div.style.borderRadius = '5px';
+    div.style.marginBottom = '5px';
+    div.textContent = `[${o.date} ${o.time}] ${o.text} (${o.meaning})`;
+    monthContent.appendChild(div);
+    });
+  modal.style.display = 'flex';
+});
+// モーダル閉じる
+closeModal.addEventListener('click',()=>{
+  modal.style.display='none';
+});
+</script>
+</div>
+</body>
+</html>
