@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-family: "Yu Mincho", "Hiragino Mincho ProN","Noto Serif JP",serif;
-  background: #e7cb8e;
+  background: #d4d9dc;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,7 +129,6 @@ h2 {
   padding: 10px;
   border-radius: 20px;
   min-width: 200px;
-   color: #fff;
 }
 
 /* モーダル */
@@ -145,25 +144,115 @@ h2 {
   align-items: center;
 }
 
-.modal-box{
-  background:#fff;
-  padding:20px;
-  border-radius: 10px;
+.modal-box {
+  background: rgba(255, 255, 255, 0.96);
+  padding: 20px;
+  border-radius: 16px;
+  width: min(88vw, 560px);
+  max-height: 80vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 #monthContent {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.month-title {
+  font-size: 20px;
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+.month-total {
+  margin: 0 0 20px;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.month-section-title {
+  font-size: 16px;
+  margin: 24px 0 12px;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
+.month-empty {
+  text-align: center;
+  padding: 24px 0;
+  opacity: 0.7;
+}
+
+.summary-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.summary-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(240, 240, 240, 0.9);
+}
+
+.summary-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.summary-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.day-block {
+  margin-bottom: 20px;
+}
+
+.day-title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: normal;
+  opacity: 0.8;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 4px;
+}
+
+.month-entry {
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.entry-time {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.entry-text {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+.entry-meaning {
+  font-size: 12px;
+  opacity: 0.9;
 }
 
 #monthContent div {
   padding: 5px 10px;
   border-radius: 5px;
   margin-bottom: 5px;
-  color: #fff;
 }
 
 #closeModal {
@@ -179,18 +268,95 @@ h2 {
 #save-button:hover {
   background: rgba(0, 0, 0, 0.2);
 }
+.chart-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 8px;
+}
 
-/* 背景全体の磨りガラスオーバーレイ */
-.background-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3); /* 半透明 */
-  backdrop-filter: blur(10px);          /* ぼかし */
-  -webkit-backdrop-filter: blur(10px);  /* Safari対応 */
-  z-index: -1;                           /* UIより下に */
+.donut-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.donut-chart {
+  width: 220px;
+  height: 220px;
+  display: block;
+}
+
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+.donut-total {
+  font-size: 28px;
+  color: #333;
+}
+
+.donut-label {
+  font-size: 12px;
+  color: #666;
+  letter-spacing: 0.08em;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(240, 240, 240, 0.9);
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-text {
+  font-size: 13px;
+  color: #333;
+}
+
+.month-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.month-nav button {
+  background: rgba(240, 240, 240, 0.9);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+}
+
+.month-nav button:hover {
+  background: rgba(220, 220, 220, 0.95);
 }
 
 /* 入力エリアの磨りガラス風 */
@@ -204,7 +370,6 @@ h2 {
   border-radius: 12px;
   padding: 8px 16px;
   font-size: 16px;
-  cursor: pointer;
   transition: 0.3s;
 }
 
