@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>気分観測アプリ16色4x4版</title>
+<title>いろあつめ</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
-<h1>今日の気分を選ぶ</h1>
+<h1>気になる色を選ぶ</h1>
 
 <div class="color-panel">
   <div class="color-grid" id="colorGrid"></div>
@@ -22,7 +22,7 @@
 </div>
 
 <button id="showMonth">月まとめを見る</button>
-
+<a class="about-link" href="about.html">このアプリについて</a>
 
 <div id="box"></div>
 
@@ -87,6 +87,14 @@ const colors = [
   { color:'#009b9f', meaning:'自由 / 独立 / 自己表現' }
 ];
 
+function shuffleArray(array) {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 function isLightColor(hex) {
   const c = hex.replace('#', '');
   const r = parseInt(c.substring(0, 2), 16);
@@ -306,7 +314,8 @@ function createLegend(colorCounts) {
 }
 
 // 色パネル生成
-colors.forEach(item => {
+const shuffledColors = shuffleArray(colors);
+shuffledColors.forEach(item => {
   const circle = document.createElement('div');
   circle.className = 'color-circle';
   circle.style.backgroundColor = item.color;
