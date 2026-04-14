@@ -458,17 +458,19 @@ h2 {
 
 .about-link {
   display: inline-block;
-  margin-top: -4px;
+  margin-top: 4px;
   margin-bottom: 12px;
   color: #333;
-  text-decoration: none;
-  opacity: 0.7;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  opacity: 0.85;
   font-size: 14px;
 }
 
 .about-link:hover {
   opacity: 1;
 }
+
 
 .back-link {
   display: inline-block;
