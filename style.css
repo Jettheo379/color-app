@@ -393,3 +393,92 @@ h2 {
 #showMonth {
   color: #333;
 }
+
+/*aboutページ*/
+.about-panel {
+  max-width: 560px;
+  margin: 0 auto 20px;
+}
+
+.about-text {
+  text-align: left;
+  color: #333;
+  line-height: 2;
+  padding: 8px;
+}
+
+.about-text p {
+  margin: 0 0 1em;
+}
+
+.about-links {
+  max-width: 320px;
+}
+
+.about-note {
+  margin: 0 0 10px;
+  color: #333;
+  font-size: 14px;
+}
+.about-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.about-list li {
+  position: relative;
+  padding-left: 1em;
+  margin-bottom: 0.8em;
+}
+
+.about-list li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+}
+.about-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #333;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.about-button:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.about-link {
+  display: inline-block;
+  margin-top: -4px;
+  margin-bottom: 12px;
+  color: #333;
+  text-decoration: none;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.about-link:hover {
+  opacity: 1;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: #333;
+  text-decoration: none;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  opacity: 1;
+}
